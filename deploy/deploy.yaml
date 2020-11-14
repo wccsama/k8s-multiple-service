@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-controller
+  namespace: kube-system
+  labels:
+    app: ms-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-controller
+  template:
+    metadata:
+      labels:
+        app: ms-controller
+    spec:
+      containers:
+        - name: ms-controller
+          image: IMAGE
+          imagePullPolicy: Always
+          command:
+            - ./usr/local/bin/multiple-service
+            - --toKubeConfig=/root/.kube/configto
+            - --fromKubeConfig=/root/.kube/configfrom
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 200m
+            requests:
+              memory: 200Mi
+              cpu: 100m
+          volumeMounts:
+            - name: host-time
+              mountPath: /etc/localtime
+              readOnly: true
+            - name: kubeconfigfrom
+              mountPath: /root/.kube/configfrom
+              readOnly: true
+            - name: kubeconfigto
+              mountPath: /root/.kube/configto
+              readOnly: true
+      volumes:
+        - name: host-time
+          hostPath:
+            path: "/etc/localtime"
+        - name: kubeconfigfrom
+          hostPath:
+            path: "/root/.kube/configfrom"
+        - name: kubeconfigto
+          hostPath:
+            path: "/root/.kube/configto"
+
+

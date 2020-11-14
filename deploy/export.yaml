@@ -1,0 +1,11 @@
+apiVersion: wcc.io/v1
+kind: ServiceExport
+metadata:
+  name: my-svcs #命名规则随意
+  namespace: default #命名规则随意
+spec:
+  fromNamespaces:
+  - "default"
+  toCluster: 
+    clusterID: "xx"
+    namespace: "wcc-test"
