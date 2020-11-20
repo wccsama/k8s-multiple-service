@@ -6,7 +6,8 @@ build:
 make build
 
 原理说明：
-修改endpoints
+修改endpoints，让原本网络互通的两个集群实现service的共享。将集群A下的某个namespace的所有service 同步到集群B的若干指定namespace，这些配置在可以在CRD中修改，
+controller 会监控CRD资源的创建、删除、更新事件，创建，更新，删除相应service。
 
 实践例子：
 TODO
