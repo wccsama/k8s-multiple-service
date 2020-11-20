@@ -1,4 +1,4 @@
-FROM hub.baidubce.com/jpaas-public/alphine-go:3.5
+FROM docker.io/alpine
 
 ADD multiple-service /usr/local/bin
 
